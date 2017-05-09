@@ -17,8 +17,16 @@ public class Monster {
 
     public Monster(String name , int personId) {
         this.name = name;
+        this.playLevel = MAX_PLAY_LEVEL / 2;
         this.personId = personId;
-
+        this.sleepLevel = MAX_SLEEP_LEVEL / 2;
+        this.foodLevel = MAX_FOOD_LEVEL / 2;
+    }
+    public int getFoodLevel(){
+    return foodLevel;
+  }
+    public int getPlayLevel() {
+        return playLevel;
     }
     public String getName(){
         return name;
@@ -28,6 +36,9 @@ public class Monster {
     }
     public int getId(){
         return id;
+    }
+    public int getSleepLevel(){
+        return sleepLevel;
     }
 
     @Override
@@ -52,7 +63,7 @@ public class Monster {
     public static List<Monster> all() {
         String sql = "SELECT * FROM monsters";
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(Monster.class);
+        return con.createQuery(sql).executeAndFetch(Monster.class);
         }
     }
     public static Monster find(int id) {
@@ -64,4 +75,20 @@ public class Monster {
             return monster;
         }
     }
+    public boolean isAlive() {
+        if (foodLevel <= MIN_ALL_LEVELS || playLevel <= MIN_ALL_LEVELS ||
+        sleepLevel <= MIN_ALL_LEVELS) {
+            return false;
+        }
+        return true;
+    }
+    public void depleteLevels(){
+        playLevel--;
+        foodLevel--;
+        sleepLevel--;
+    }
+    public void play(){
+        playLevel++;
+    }
+
 }
