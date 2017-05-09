@@ -6,6 +6,14 @@ public class Monster {
     private String name;
     private int personId;
     private int id;
+    private int foodLevel;
+    private int sleepLevel;
+    private int playLevel;
+
+    public static final int MAX_FOOD_LEVEL = 3;
+    public static final int MAX_SLEEP_LEVEL = 8;
+    public static final int MAX_PLAY_LEVEL = 12;
+    public static final int MIN_ALL_LEVELS = 0;
 
     public Monster(String name , int personId) {
         this.name = name;

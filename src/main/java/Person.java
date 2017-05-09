@@ -11,8 +11,6 @@ public class Person {
     public Person(String name, String email) {
         this.name = name;
         this.email = email;
-
-
     }
     public String getName() {
         return name;
@@ -56,6 +54,14 @@ public class Person {
             .addParameter("id",id)
             .executeAndFetchFirst(Person.class);
             return person;
+        }
+    }
+    public List<Monster> getMonsters() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM monsters where personId = :id";
+            return con.createQuery(sql)
+            .addParameter("id",this.id)
+            .executeAndFetch(Monster.class);
         }
     }
 
