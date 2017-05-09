@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 import org.sql2o.*;
 
 public class PersonTest {
+    @Rule
+    public DatabaseRule database = new DatabaseRule();
 
     @Test
     public void person_instantiatesCorrectly_true() {
@@ -30,6 +32,37 @@ public class PersonTest {
         Person testPerson = new Person("Henry","[email protected]");
         testPerson.save();
         assertTrue(Person.all().get(0).equals(testPerson));
+    }
+    @Test
+    public void all_returnsAllInstancesOfPerson_true() {
+        Person firstPerson = new Person("Henry","henry@henry.com");
+        firstPerson.save();
+        Person secondPerson = new Person("Harriet", "harriet@harriet.com");
+        secondPerson.save();
+        assertEquals(true,Person.all().get(0).equals(firstPerson));
+        assertEquals(true,Person.all().get(1).equals(secondPerson));
+    }
+    @Test
+    public void save_assignsIdtoObject() {
+        Person testPerson = new Person("Henry","henry@henry.com");
+        testPerson.save();
+        Person savedPerson = Person.all().get(0);
+        assertEquals(testPerson.getId(),savedPerson.getId());
+    }
+    @Test
+    public void find_returnsPersonWithSameId_secondPerson()
+    {
+        Person firstPerson = new Person ("Henry", "henry@henry.com");
+        firstPerson.save();
+        Person secondPerson = new Person("Harriet","harriet@haharriet.com");
+        secondPerson.save();
+        assertEquals(Person.find(secondPerson.getId()),secondPerson);
+    }
+    @Test
+    public void save_savesPersonIntoDB_true() {
+        Person testPerson = new Person("Henry", "henry@henry.com");
+        testPerson.save();
+        Monster testMonster = new
     }
 
 
