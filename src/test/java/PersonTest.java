@@ -60,7 +60,7 @@ public class PersonTest {
         assertEquals(Person.find(secondPerson.getId()),secondPerson);
     }
     @Test
-    public void getMonsters_retrievesAllMOnstersFromDatabase_monstersList() {
+    public void getMonsters_retrievesAllMonstersFromDatabase_monstersList() {
         Person testPerson = new Person("Henry", "henry@henry.com");
         testPerson.save();
 
